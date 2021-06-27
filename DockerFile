@@ -1,0 +1,5 @@
+FROM openjdk:8-jre-alpine
+#USER root
+ADD ./target/shopApp-1.0.0-jar-with-dependencies.jar shopApp-1.0.0-jar-with-dependencies.jar
+CMD java -jar shopApp-1.0.0-jar-with-dependencies.jar
+
