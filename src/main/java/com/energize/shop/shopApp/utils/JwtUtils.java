@@ -2,6 +2,7 @@ package com.energize.shop.shopApp.utils;
 
 import com.energize.shop.shopApp.repository.UserDetailsImpl;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.impl.DefaultJwtBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,16 +17,20 @@ public class JwtUtils {
     @Value("${shop.app.jwtSecret}")
     private String jwtSecret;
 
-     @Value("${shop.app.jwtExpireationMs}")
-    private String jwtExpirationMs;
+    @Value("${shop.app.jwtExpireationMs}")
+    private Long jwtExpirationMs;
 
-     private static final Logger logger= LoggerFactory.getLogger(JwtUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    public  String generateJwtToken(Authentication authentication){
-        UserDetailsImpl userPrincipal= (UserDetailsImpl) authentication.getPrincipal();
+    public String generateJwtToken(Authentication authentication) {
+        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-        return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs)).signWith(SignatureAlgorithm.HS512, jwtSecret)
+
+        return Jwts.builder()
+                .setSubject((userPrincipal.getUsername()))
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
