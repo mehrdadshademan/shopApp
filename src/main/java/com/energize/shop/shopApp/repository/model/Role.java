@@ -3,10 +3,11 @@ package com.energize.shop.shopApp.repository.model;
 import com.energize.shop.shopApp.enums.ERole;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="roles")
-public class Role {
+public class Role implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
